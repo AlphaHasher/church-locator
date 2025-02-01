@@ -50,7 +50,8 @@ const locations = [
   { name: "Gold Country Baptist Church", contact: "Sean Downey", website: "https://www.gcb.church", address: "3800 N Shingle Rd, Shingle Springs, CA  95682", lat: 38.6638534, lon: -120.9358549 },
   { name: "Redeemer Bible Church", contact: "", website: "https://redeemerbible.net", address: "3101 Dwight Rd, Elk Grove, CA  95758", lat: 38.427443, lon: -121.4600931 },
   { name: "The Cornerstone Bible Church", contact: "", website: "https://www.tcbcsacramento.org/", address: "1101 National Dr, Sacramento, CA 95834", lat: 38.645191, lon: -121.4877573 },
-  { name: "Grace Bible Church", contact: "", website: "https://gracebibleroseville.com", address: "1390 Baseline Rd, Roseville, CA 95747", lat: 38.7526293, lon: -121.31335 }
+  { name: "Grace Bible Church", contact: "", website: "https://gracebibleroseville.com", address: "1390 Baseline Rd, Roseville, CA 95747", lat: 38.7526293, lon: -121.31335 },
+  { name: "Second Slavic Baptist Church", contact: "", website: "https://ssb.church/", address: "6601 Watt Ave, North Highlands, CA 95660", lat: 38.686493, lon: -121.382843 }
 ];
 
 app.use(cors());
@@ -58,7 +59,6 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Geocode function to get lat/lon from address
-const axios = require('axios');
 
 async function geocodeAddress(address) {
   const apiKey = process.env.MAPS_API_KEY;
@@ -70,10 +70,8 @@ async function geocodeAddress(address) {
 
     if (Array.isArray(data) && data.length > 0) {
       const { lat, lon } = data[0]; // Extract lat/lon from the first result
-      console.log(lat, lon);
       return { lat, lon };
     } else {
-      console.log("No results found");
       return null;
     }
   } catch (err) {

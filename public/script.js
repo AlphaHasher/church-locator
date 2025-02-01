@@ -12,12 +12,24 @@ async function findChurch() {
     });
 
     const data = await response.json();
+    const resultContainer = document.getElementById("result");
+
     if (data.error) {
-        document.getElementById("result").innerHTML = `<p>${data.error}</p>`;
+        resultContainer.innerHTML = `<p>${data.error}</p>`;
     } else {
-        document.getElementById("result").innerHTML = `
-            <h2>Nearest Church: ${data.church.name}</h2>
-            <a href="${data.mapUrl}" target="_blank">Open in Maps</a>
+        const getFieldHtml = (label, value, isLink = false) => {
+            if (!value) return '';
+            return isLink
+                ? `<p><strong>${label}:</strong> <a href="${value}" target="_blank">${value}</a></p>`
+                : `<p><strong>${label}:</strong> ${value}</p>`;
+        };
+
+        resultContainer.innerHTML = `
+            <h2>${data.church.name}</h2>
+            ${getFieldHtml('Address', data.church.address)}
+            ${getFieldHtml('Contact', data.church.contact)}            ${getFieldHtml('Website', data.church.website, true)}
+            <a id="map-btn" href="${data.mapUrl}" target="_blank">Open in Maps</a>
         `;
     }
+    resultContainer.style.display = "block";
 }
