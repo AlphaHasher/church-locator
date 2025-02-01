@@ -6,43 +6,6 @@ const cors = require("cors");
 const app = express();
 const PORT = 3000;
 
-// Predefined church locations (latitude, longitude, and name)
-
-// Grace Bible Church of Fair Oaks
-// Anthony Marquez & Kelly Salas
-// 5010 Hazel Ave, Fair Oaks, CA 95628
-// https://gracefairoaks.com/
-
-// Iglesia Bíblica Fundamental de la Gracia (Spanish-speaking church)
-// Adolfo Cardoza & David Perez
-// 5010 Hazel Ave, Fair Oaks, CA 95628
-// https://ibfg.church/
-
-// City Bible Church of East Sacramento
-// Jonathan Reed & Gabriel Marquez
-// (closest to Sac State)
-// 1101 51st St
-// Sacramento, CA  95819
-// https://www.citybiblesacramento.com/
-
-// Gold Country Baptist Church
-// Sean Downey
-// 3800 N Shingle Rd
-// Shingle Springs, CA  95682
-// https://www.gcb.church
-
-// Redeemer Bible Church
-// 3101 Dwight Rd
-// Elk Grove, CA  95758
-// https://redeemerbible.net
-
-// The Cornerstone Bible Church (of Natomas)
-// 1101 National Dr, Sacramento, CA 95834
-// https://www.tcbcsacramento.org/
-
-// Grace Bible Church (of Roseville)
-// 1390 Baseline Rd, Roseville, CA 95747
-// https://gracebibleroseville.com
 const locations = [
   { name: "Grace Bible Church of Fair Oaks", contact: "Anthony Marquez & Kelly Salas", website: "https://gracefairoaks.com/", address: "5010 Hazel Ave, Fair Oaks, CA 95628", lat: 38.65678, lon: -121.225664 },
   { name: "Iglesia Bíblica Fundamental de la Gracia", contact: "Adolfo Cardoza & David Perez", website: "https://ibfg.church/", address: "5010 Hazel Ave, Fair Oaks, CA 95628", lat: 38.65678, lon: -121.225664 },
@@ -58,8 +21,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-// Geocode function to get lat/lon from address
 
+// Geocode function to get lat/lon from address
 async function geocodeAddress(address) {
   const apiKey = process.env.MAPS_API_KEY;
   const url = `https://geocode.maps.co/search?q=${encodeURIComponent(address)}&api_key=${apiKey}`;
@@ -83,7 +46,7 @@ async function geocodeAddress(address) {
 
 // Haversine formula to calculate distance
 function haversine(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Earth's radius in km
+  const R = 6378; // Earth's radius in km
   const dLat = (lat2 - lat1) * (Math.PI / 180);
   const dLon = (lon2 - lon1) * (Math.PI / 180);
   const a =
