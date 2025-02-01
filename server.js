@@ -58,25 +58,30 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Geocode function to get lat/lon from address
+const axios = require('axios');
+
 async function geocodeAddress(address) {
   const apiKey = process.env.MAPS_API_KEY;
-  const url = `https://geocode.maps.co/search?q=${encodeURIComponent(
-    address
-  )}&api_key=${apiKey}`;
+  const url = `https://geocode.maps.co/search?q=${encodeURIComponent(address)}&api_key=${apiKey}`;
 
-  try{
+  try {
     const response = await axios.get(url);
-    const { data } = response;
-    if (data.status === "OK") {
-      const { lat, lon } = data.results[0].geometry;
+    const data = response.data;
+
+    if (Array.isArray(data) && data.length > 0) {
+      const { lat, lon } = data[0]; // Extract lat/lon from the first result
       console.log(lat, lon);
       return { lat, lon };
+    } else {
+      console.log("No results found");
+      return null;
     }
+  } catch (err) {
+    console.error("Geocoding failed:", err);
+    return null;
   }
-    catch(err){
-        console.error(err);
-    }
 }
+
 
 // Haversine formula to calculate distance
 function haversine(lat1, lon1, lat2, lon2) {
