@@ -10,6 +10,12 @@
     <div class="container">
         <h1>Find the Nearest Church</h1>
         <input type="text" id="address" placeholder="Enter address or ZIP code">
+        <select id="language" class="language-select">
+            <option value="">Any Language</option>
+            <option value="English">English</option>
+            <option value="Spanish">Spanish</option>
+            <option value="Russian">Russian</option>
+        </select>
         <button onclick="findChurch()">Find</button>
         <div id="result" class="result-container"></div>
     </div>

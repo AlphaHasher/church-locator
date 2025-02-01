@@ -18,7 +18,7 @@ body {
     width: 90%;
     max-width: 400px;
 }
-input {
+input, select {
     padding: 10px;
     width: 100%;
     margin-bottom: 10px;
@@ -66,4 +66,53 @@ button:hover {
 }
 .result-container a:hover {
     text-decoration: underline;
+}
+
+.contact-cards {
+    margin-top: 20px;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.contact-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.contact-card h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.contact-card p {
+    margin: 5px 0;
+}
+
+.contact-card a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-card a:hover {
+    text-decoration: underline;
+}
+
+.language-select {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.languages {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 10px;
 }

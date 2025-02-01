@@ -7,15 +7,100 @@ const app = express();
 const PORT = 3000;
 
 const locations = [
-  { name: "Grace Bible Church of Fair Oaks", contact: "Anthony Marquez & Kelly Salas", website: "https://gracefairoaks.com/", address: "5010 Hazel Ave, Fair Oaks, CA 95628", lat: 38.65678, lon: -121.225664 },
-  { name: "Iglesia Bíblica Fundamental de la Gracia", contact: "Adolfo Cardoza & David Perez", website: "https://ibfg.church/", address: "5010 Hazel Ave, Fair Oaks, CA 95628", lat: 38.65678, lon: -121.225664 },
-  { name: "City Bible Church of East Sacramento", contact: "Jonathan Reed & Gabriel Marquez", website: "https://www.citybiblesacramento.com/", address: "1101 51st St, Sacramento, CA  95819", lat: 38.5653125, lon: -121.4423517 },
-  { name: "Gold Country Baptist Church", contact: "Sean Downey", website: "https://www.gcb.church", address: "3800 N Shingle Rd, Shingle Springs, CA  95682", lat: 38.6638534, lon: -120.9358549 },
-  { name: "Redeemer Bible Church", contact: "", website: "https://redeemerbible.net", address: "3101 Dwight Rd, Elk Grove, CA  95758", lat: 38.427443, lon: -121.4600931 },
-  { name: "The Cornerstone Bible Church", contact: "", website: "https://www.tcbcsacramento.org/", address: "1101 National Dr, Sacramento, CA 95834", lat: 38.645191, lon: -121.4877573 },
-  { name: "Grace Bible Church", contact: "", website: "https://gracebibleroseville.com", address: "1390 Baseline Rd, Roseville, CA 95747", lat: 38.7526293, lon: -121.31335 },
-  { name: "Second Slavic Baptist Church", contact: "", website: "https://ssb.church/", address: "6601 Watt Ave, North Highlands, CA 95660", lat: 38.686493, lon: -121.382843 },
-  { name: "Fremont Presbyterian Church", contact: "", website: "https://www.fremontpres.org/online", address: "5770 Carlson Dr, Sacramento, CA 95819", lat: 38.568154, lon: -121.430646 }
+  {
+    name: "Grace Bible Church of Fair Oaks",
+    languages: ["English"],
+    contacts: [
+      { name: "Anthony Marquez", phone: "9168620248", email: "" },
+      { name: "Kelly Salas", phone: "", email: "" }
+    ],
+    website: "https://gracefairoaks.com/",
+    address: "5010 Hazel Ave, Fair Oaks, CA 95628",
+    lat: 38.65678,
+    lon: -121.225664
+  },
+  {
+    name: "Iglesia Bíblica Fundamental de la Gracia",
+    languages: ["Spanish", "English"],
+    contacts: [
+      { name: "Adolfo Cardoza", phone: "", email: "" },
+      { name: "David Perez", phone: "", email: "" }
+    ],
+    website: "https://ibfg.church/",
+    address: "5010 Hazel Ave, Fair Oaks, CA 95628",
+    lat: 38.65678,
+    lon: -121.225664
+  },
+  {
+    name: "City Bible Church of East Sacramento",
+    languages: ["English"],
+    contacts: [
+      { name: "Jonathan Reed", phone: "" },
+      { name: "Gabriel Marquez", email: "" }
+    ],
+    website: "https://www.citybiblesacramento.com/",
+    address: "1101 51st St, Sacramento, CA  95819",
+    lat: 38.5653125,
+    lon: -121.4423517
+  },
+  {
+    name: "Gold Country Baptist Church",
+    languages: ["English"],
+    contacts: [
+      { name: "Sean Downey", phone: "" }
+    ],
+    website: "https://www.gcb.church",
+    address: "3800 N Shingle Rd, Shingle Springs, CA  95682",
+    lat: 38.6638534,
+    lon: -120.9358549
+  },
+  {
+    name: "Redeemer Bible Church",
+    languages: ["English"],
+    contacts: [],
+    website: "https://redeemerbible.net",
+    address: "3101 Dwight Rd, Elk Grove, CA  95758",
+    lat: 38.427443,
+    lon: -121.4600931
+  },
+  {
+    name: "The Cornerstone Bible Church",
+    languages: ["English"],
+    contacts: [],
+    website: "https://www.tcbcsacramento.org/",
+    address: "1101 National Dr, Sacramento, CA 95834",
+    lat: 38.645191,
+    lon: -121.4877573
+  },
+  {
+    name: "Grace Bible Church",
+    languages: ["English"],
+    contacts: [],
+    website: "https://gracebibleroseville.com",
+    address: "1390 Baseline Rd, Roseville, CA 95747",
+    lat: 38.7526293,
+    lon: -121.31335
+  },
+  {
+    name: "Second Slavic Baptist Church",
+    languages: ["Russian", "English"],
+    contacts: [],
+    website: "https://ssb.church/",
+    address: "6601 Watt Ave, North Highlands, CA 95660",
+    lat: 38.686493,
+    lon: -121.382843
+  },
+  {
+    name: "Fremont Presbyterian Church",
+    languages: ["English"],
+    contacts: [
+      { name: "Dave Pack", phone: "916-605-8046", email: "dpack@fremontpres.org " }
+    ],
+    website: "https://www.fremontpres.org/online",
+    address: "5770 Carlson Dr, Sacramento, CA 95819",
+    lat: 38.568154,
+    lon: -121.430646
+  }
 ];
 
 app.use(cors());
@@ -61,7 +146,7 @@ function haversine(lat1, lon1, lat2, lon2) {
 
 // API route to find the closest church
 app.post("/find-church", async (req, res) => {
-  const { address } = req.body;
+  const { address, language } = req.body;
   if (!address) return res.status(400).json({ error: "Address is required" });
 
   const userLocation = await geocodeAddress(address);
@@ -71,7 +156,11 @@ app.post("/find-church", async (req, res) => {
   let closestChurch = null;
   let minDistance = Infinity;
 
-  locations.forEach((church) => {
+  const filteredLocations = language
+    ? locations.filter(church => church.languages.includes(language))
+    : locations;
+
+  filteredLocations.forEach((church) => {
     const distance = haversine(
       userLocation.lat,
       userLocation.lon,
@@ -83,6 +172,10 @@ app.post("/find-church", async (req, res) => {
       closestChurch = church;
     }
   });
+
+  if (!closestChurch) {
+    return res.json({ error: "No churches found matching your criteria" });
+  }
 
   res.json({
     church: closestChurch,
