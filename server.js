@@ -14,7 +14,8 @@ const locations = [
   { name: "Redeemer Bible Church", contact: "", website: "https://redeemerbible.net", address: "3101 Dwight Rd, Elk Grove, CA  95758", lat: 38.427443, lon: -121.4600931 },
   { name: "The Cornerstone Bible Church", contact: "", website: "https://www.tcbcsacramento.org/", address: "1101 National Dr, Sacramento, CA 95834", lat: 38.645191, lon: -121.4877573 },
   { name: "Grace Bible Church", contact: "", website: "https://gracebibleroseville.com", address: "1390 Baseline Rd, Roseville, CA 95747", lat: 38.7526293, lon: -121.31335 },
-  { name: "Second Slavic Baptist Church", contact: "", website: "https://ssb.church/", address: "6601 Watt Ave, North Highlands, CA 95660", lat: 38.686493, lon: -121.382843 }
+  { name: "Second Slavic Baptist Church", contact: "", website: "https://ssb.church/", address: "6601 Watt Ave, North Highlands, CA 95660", lat: 38.686493, lon: -121.382843 },
+  { name: "Fremont Presbyterian Church", contact: "", website: "https://www.fremontpres.org/online", address: "5770 Carlson Dr, Sacramento, CA 95819", lat: 38.568154, lon: -121.430646 }
 ];
 
 app.use(cors());
