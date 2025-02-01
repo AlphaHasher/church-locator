@@ -85,7 +85,7 @@ app.post("/find-church", async (req, res) => {
 
   res.json({
     church: closestChurch,
-    mapUrl: `https://www.google.com/maps/search/?api=1&query=${closestChurch.lat}%2C${closestChurch.lon}`,
+    mapUrl: `https://www.google.com/maps/search/?api=1&query=${closestChurch.name}`,
   });
 });
 
