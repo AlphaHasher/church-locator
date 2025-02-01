@@ -11,7 +11,7 @@ const locations = [
     name: "Grace Bible Church of Fair Oaks",
     languages: ["English"],
     contacts: [
-      { name: "Anthony Marquez", phone: "9168620248", email: "" },
+      { name: "Anthony Marquez", phone: "916-862-0248", email: "" },
       { name: "Kelly Salas", phone: "", email: "" }
     ],
     website: "https://gracefairoaks.com/",
