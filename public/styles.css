@@ -85,6 +85,8 @@ button:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .contact-card h3 {
@@ -100,6 +102,8 @@ button:hover {
 .contact-card a {
     color: #007bff;
     text-decoration: none;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .contact-card a:hover {
