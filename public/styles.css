@@ -47,6 +47,12 @@ button:hover {
     display: none;
     text-align: left;
 }
+
+.result-container h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
 #map-btn {
     display: inline-block;
     padding: 10px 15px;

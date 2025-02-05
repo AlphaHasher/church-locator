@@ -2,11 +2,6 @@ async function findChurch() {
     const address = document.getElementById("address").value;
     const language = document.getElementById("language").value;
 
-    if (!address) {
-        alert("Please enter an address or ZIP code.");
-        return;
-    }
-
     const response = await fetch("/find-church", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -27,7 +22,6 @@ async function findChurch() {
         };
 
         const getContactCardsHtml = (contacts) => {
-            console.log('Contacts:', contacts); // Debug log
             if (!contacts || contacts.length === 0) return '';
             return contacts.map(contact => `
                 <div class="contact-card">
