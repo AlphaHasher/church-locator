@@ -62,8 +62,6 @@ function reportback() {
 
 // API route to find the closest church
 app.post("/find-church", async (req, res) => {
-  reportback();
-
   const { address, language } = req.body;
   if (!address) return res.status(400).json({ error: "Address is required" });
 
@@ -71,6 +69,8 @@ app.post("/find-church", async (req, res) => {
   if (!userLocation)
     return res.status(400).json({ error: "Invalid address provided" });
 
+  reportback();
+  
   let closestChurch = null;
   let minDistance = Infinity;
 
