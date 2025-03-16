@@ -6,6 +6,7 @@ const locations = require("./churchLocations");
 
 const app = express();
 const PORT = 3000;
+let numberOfUsers = 0; // Counter for tracking user lookups
 
 app.use(cors());
 app.use(express.json());
@@ -46,8 +47,23 @@ function haversine(lat1, lon1, lat2, lon2) {
   return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
 }
 
+function reportback() {
+  const webhookURL = process.env.WEBHOOK_URL;
+
+  numberOfUsers++;
+
+  axios.post(webhookURL, {
+    content: "Someone is looking for a church!\nTotal is: " + numberOfUsers
+  })
+  .catch(error => {
+    console.error("Error sending webhook notification:", error);
+  });
+}
+
 // API route to find the closest church
 app.post("/find-church", async (req, res) => {
+  reportback();
+
   const { address, language } = req.body;
   if (!address) return res.status(400).json({ error: "Address is required" });
 
