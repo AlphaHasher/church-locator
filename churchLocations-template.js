@@ -7,6 +7,9 @@ const locations = [
       ],
       website: "",
       address: "",
+      mapsLink: [
+        { googlelink: "", applelink: "" }
+      ],
       lat: 1,
       lon: 1
     }

@@ -32,12 +32,55 @@ async function findChurch() {
             `).join('');
         };
 
+        const getMapButtonsHtml = (mapsLink, address) => {
+            let googleLink = '';
+            let appleLink = '';
+            
+            // If mapsLink exists and has data, use it
+            if (mapsLink && mapsLink.length > 0) {
+                const links = mapsLink[0];
+                googleLink = links.googlelink || '';
+                appleLink = links.applelink || '';
+            }
+            
+            // If no links provided but we have an address, generate them
+            if (address && (!googleLink || !appleLink)) {
+                const encodedAddress = encodeURIComponent(address);
+                
+                if (!googleLink) {
+                    googleLink = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+                }
+                
+                if (!appleLink) {
+                    appleLink = `https://maps.apple.com/?q=${encodedAddress}`;
+                }
+            }
+            
+            // If we still don't have any links, return empty
+            if ((!googleLink || googleLink.trim() === '') && (!appleLink || appleLink.trim() === '')) {
+                return '';
+            }
+            
+            let buttonsHtml = `<div class="map-buttons">`;
+            
+            if (googleLink && googleLink.trim() !== '') {
+                buttonsHtml += `<button class="map-btn google-btn" onclick="window.open('${googleLink}', '_blank')">📍 Google Maps</button>`;
+            }
+            
+            if (appleLink && appleLink.trim() !== '') {
+                buttonsHtml += `<button class="map-btn apple-btn" onclick="window.open('${appleLink}', '_blank')">🗺️ Apple Maps</button>`;
+            }
+            
+            buttonsHtml += '</div>';
+            return buttonsHtml;
+        };
+
         resultContainer.innerHTML = `
             <h2>${data.church.name}</h2>
             ${getFieldHtml('Languages', data.church.languages.join(', '))}
             ${getFieldHtml('Address', data.church.address)}
             ${getFieldHtml('Website', data.church.website, true)}
-            <a id="map-btn" href="${data.mapUrl}" target="_blank">Open in Maps</a>
+            ${getMapButtonsHtml(data.church.mapsLink, data.church.address)}
             <div class="contact-cards">
                 ${getContactCardsHtml(data.church.contacts)}
             </div>
