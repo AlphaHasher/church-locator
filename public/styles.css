@@ -6,8 +6,7 @@ body {
     min-height: 100vh;
     background-color: #f4f4f4;
     margin: 0;
-    padding: 20px;
-    overflow-y: auto;
+    padding-top: 5px;
 }
 .container {
     background: white;
@@ -26,6 +25,7 @@ input, select {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 button {
     padding: 10px;
@@ -35,9 +35,13 @@ button {
     cursor: pointer;
     width: 100%;
     border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
 }
 button:hover {
     background: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
 }
 .result-container {
     margin-top: 20px;
@@ -46,6 +50,7 @@ button:hover {
     border-radius: 5px;
     display: none;
     text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .result-container h2 {
@@ -83,6 +88,10 @@ button:hover {
     text-align: center;
     font-size: 14px;
     flex: 1;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
 }
 
 .google-btn {
@@ -92,6 +101,8 @@ button:hover {
 
 .google-btn:hover {
     background: #2d8f47;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
 }
 
 .apple-btn {
@@ -101,6 +112,8 @@ button:hover {
 
 .apple-btn:hover {
     background: #0051d5;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
 }
 .result-container a {
     color: #007bff;
@@ -123,11 +136,12 @@ button:hover {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     width: 100%;
     max-width: 100%;
     word-break: break-word;
     overflow-wrap: break-word;
+    transition: all 0.3s ease;
 }
 
 .contact-card h3 {
@@ -149,6 +163,11 @@ button:hover {
 
 .contact-card a:hover {
     text-decoration: underline;
+}
+
+.contact-card:hover {
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
 }
 
 .language-select {
@@ -177,4 +196,5 @@ button:hover {
     line-height: 1.4;
     background-color: #fafafa;
     border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
